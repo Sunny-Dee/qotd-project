@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="qotd.QuoteControllerSpec" tests="7" skipped="0" failures="0" errors="0" timestamp="2016-05-09T13:42:12" hostname="moonshot010.local" time="0.295">
+  <properties/>
+  <testcase name="Test the index action returns the correct model" classname="qotd.QuoteControllerSpec" time="0.216"/>
+  <testcase name="Test the create action returns the correct model" classname="qotd.QuoteControllerSpec" time="0.01"/>
+  <testcase name="Test the save action correctly persists an instance" classname="qotd.QuoteControllerSpec" time="0.021"/>
+  <testcase name="Test that the show action returns the correct model" classname="qotd.QuoteControllerSpec" time="0.007"/>
+  <testcase name="Test that the edit action returns the correct model" classname="qotd.QuoteControllerSpec" time="0.008"/>
+  <testcase name="Test the update action performs an update on a valid domain instance" classname="qotd.QuoteControllerSpec" time="0.017"/>
+  <testcase name="Test that the delete action deletes an instance if it exists" classname="qotd.QuoteControllerSpec" time="0.015"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
