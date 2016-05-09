@@ -3,14 +3,13 @@ package qotd
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(QuoteController)
-@Mock(Quote)
-class QuoteControllerSpec extends Specification {
+@TestFor(AttributionController)
+@Mock(Attribution)
+class AttributionControllerSpec extends Specification {
 
     def populateValidParams(params) {
-        
         assert params != null
-        params["text"] = 'Some memorable words...'
+        params["name"] = 'Anonymous'
     }
 
     void "Test the index action returns the correct model"() {
@@ -19,8 +18,8 @@ class QuoteControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.quoteList
-            model.quoteCount == 0
+            !model.attributionList
+            model.attributionCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -28,7 +27,7 @@ class QuoteControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.quote!= null
+            model.attribution!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -36,25 +35,25 @@ class QuoteControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def quote = new Quote()
-            quote.validate()
-            controller.save(quote)
+            def attribution = new Attribution()
+            attribution.validate()
+            controller.save(attribution)
 
         then:"The create view is rendered again with the correct model"
-            model.quote!= null
+            model.attribution!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            quote = new Quote(params)
+            attribution = new Attribution(params)
 
-            controller.save(quote)
+            controller.save(attribution)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/quote/show/1'
+            response.redirectedUrl == '/attribution/show/1'
             controller.flash.message != null
-            Quote.count() == 1
+            Attribution.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -66,11 +65,11 @@ class QuoteControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def quote = new Quote(params)
-            controller.show(quote)
+            def attribution = new Attribution(params)
+            controller.show(attribution)
 
         then:"A model is populated containing the domain instance"
-            model.quote == quote
+            model.attribution == attribution
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -82,11 +81,11 @@ class QuoteControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def quote = new Quote(params)
-            controller.edit(quote)
+            def attribution = new Attribution(params)
+            controller.edit(attribution)
 
         then:"A model is populated containing the domain instance"
-            model.quote == quote
+            model.attribution == attribution
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -96,28 +95,28 @@ class QuoteControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/quote/index'
+            response.redirectedUrl == '/attribution/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def quote = new Quote()
-            quote.validate()
-            controller.update(quote)
+            def attribution = new Attribution()
+            attribution.validate()
+            controller.update(attribution)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.quote == quote
+            model.attribution == attribution
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            quote = new Quote(params).save(flush: true)
-            controller.update(quote)
+            attribution = new Attribution(params).save(flush: true)
+            controller.update(attribution)
 
         then:"A redirect is issued to the show action"
-            quote != null
-            response.redirectedUrl == "/quote/show/$quote.id"
+            attribution != null
+            response.redirectedUrl == "/attribution/show/$attribution.id"
             flash.message != null
     }
 
@@ -128,23 +127,23 @@ class QuoteControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/quote/index'
+            response.redirectedUrl == '/attribution/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def quote = new Quote(params).save(flush: true)
+            def attribution = new Attribution(params).save(flush: true)
 
         then:"It exists"
-            Quote.count() == 1
+            Attribution.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(quote)
+            controller.delete(attribution)
 
         then:"The instance is deleted"
-            Quote.count() == 0
-            response.redirectedUrl == '/quote/index'
+            Attribution.count() == 0
+            response.redirectedUrl == '/attribution/index'
             flash.message != null
     }
 }
